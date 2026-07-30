@@ -25,9 +25,6 @@
             	"generated/"
          	]
         }
-		"files": [
-        	"generated/CoreConstants.php"
-      	]
     },
     "autoload-dev": {
         "psr-4": {
