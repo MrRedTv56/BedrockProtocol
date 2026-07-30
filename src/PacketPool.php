@@ -264,6 +264,7 @@ class PacketPool{
 		$this->registerPacket(new ClientboundUpdateSoundDataPacket());
 		$this->registerPacket(new SendPartyDestinationCookiePacket());
 		$this->registerPacket(new PartyDestinationCookieResponsePacket());
+		$this->registerPacket(new SetPlayerFurnaceOptionsPacket());
 	}
 
 	public function registerPacket(Packet $packet) : void{
