@@ -21,10 +21,13 @@
     "autoload": {
         "psr-4": {
             "pocketmine\\network\\mcpe\\protocol\\":  [
-            "src/",
-            "generated/"
-         ]
+           		"src/",
+            	"generated/"
+         	]
         }
+		"files": [
+        	"generated/CoreConstants.php"
+      	]
     },
     "autoload-dev": {
         "psr-4": {
