@@ -21,7 +21,7 @@ final class ProtocolInfoTest extends TestCase{
 	public function testMinecraftVersionNetwork() : void{
 		self::assertMatchesRegularExpression(
 			'/^(?:\d+\.)?(?:\d+\.)?(?:\d+\.)?\d+$/',
-			ProtocolInfo::MINECRAFT_VERSION_NETWORK,
+			VersionInfo::MINECRAFT_VERSION_NETWORK,
 			"Network version should only contain 0-9 and \".\", and no more than 4 groups of digits"
 		);
 	}

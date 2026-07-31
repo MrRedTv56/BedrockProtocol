@@ -23,6 +23,7 @@ use pmmp\encoding\VarInt;
 use pocketmine\network\mcpe\protocol\PacketDecodeException;
 use pocketmine\network\mcpe\protocol\ProtocolInfo;
 use pocketmine\network\mcpe\protocol\serializer\CommonTypes;
+use pocketmine\network\mcpe\protocol\VersionInfo;
 
 final class LevelSettings{
 
@@ -72,7 +73,7 @@ final class LevelSettings{
 	public bool $disablePersona = false;
 	public bool $disableCustomSkins = false;
 	public bool $muteEmoteAnnouncements = false;
-	public string $vanillaVersion = ProtocolInfo::MINECRAFT_VERSION_NETWORK;
+	public string $vanillaVersion = VersionInfo::MINECRAFT_VERSION_NETWORK;
 	public int $limitedWorldWidth = 0;
 	public int $limitedWorldLength = 0;
 	public bool $isNewNether = true;

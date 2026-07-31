@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace pocketmine\network\mcpe\protocol\types\skin;
 
 use pocketmine\network\mcpe\protocol\ProtocolInfo;
+use pocketmine\network\mcpe\protocol\VersionInfo;
 use Ramsey\Uuid\Uuid;
 
 class SkinData{
@@ -38,7 +39,7 @@ class SkinData{
 		private array $animations = [],
 		?SkinImage $capeImage = null,
 		private string $geometryData = "",
-		private string $geometryDataEngineVersion = ProtocolInfo::MINECRAFT_VERSION_NETWORK,
+		private string $geometryDataEngineVersion = VersionInfo::MINECRAFT_VERSION_NETWORK,
 		private string $animationData = "",
 		private string $capeId = "",
 		?string $fullSkinId = null,
