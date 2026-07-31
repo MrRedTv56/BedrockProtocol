@@ -19,6 +19,11 @@ namespace pocketmine\network\mcpe\protocol\types\login\clientdata;
  */
 final class ClientData{
 
+	/** >= ProtocolInfo::PROTOCOL_1_26_50 */
+	public string $Nonce = "";
+	/** >= ProtocolInfo::PROTOCOL_1_26_50 */
+	public string $ProfileHash = "";
+
 	/**
 	 * @var ClientDataAnimationFrame[]
 	 * @required
