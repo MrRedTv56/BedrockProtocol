@@ -242,7 +242,7 @@ final class ProtocolInfo{
 	public const SET_HUD_PACKET = 0x134;
 	public const AWARD_ACHIEVEMENT_PACKET = 0x135;
 	public const CLIENTBOUND_CLOSE_FORM_PACKET = 0x136;
-
+	public const CLIENTBOUND_LOADING_SCREEN_PACKET = 0x137; // manquant !
 	public const SERVERBOUND_LOADING_SCREEN_PACKET = 0x138;
 	public const JIGSAW_STRUCTURE_DATA_PACKET = 0x139;
 	public const CURRENT_STRUCTURE_FEATURE_PACKET = 0x13a;

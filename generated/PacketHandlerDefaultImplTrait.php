@@ -941,4 +941,8 @@ trait PacketHandlerDefaultImplTrait{
 	public function handleSetPlayerFurnaceOptions(SetPlayerFurnaceOptionsPacket $packet) : bool {
     	return false;
 	}
+
+	public function handleClientboundLoadingScreen(ClientboundLoadingScreenPacket $param): bool {
+		return false;
+	}
 }

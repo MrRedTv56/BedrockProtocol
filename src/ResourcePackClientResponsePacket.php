@@ -43,6 +43,7 @@ class ResourcePackClientResponsePacket extends DataPacket implements Serverbound
 	}
 
 	protected function decodePayload(ByteBufferReader $in) : void{
+		$bool = CommonTypes::getBool($in); // 1 byte bool
 		$this->responseType = CommonTypes::getString($in);
 		$this->status = match($this->responseType){
 			'cancel' => self::STATUS_REFUSED,

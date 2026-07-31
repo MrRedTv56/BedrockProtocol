@@ -477,4 +477,6 @@ interface PacketHandlerInterface{
 	public function handlePartyDestinationCookieResponse(PartyDestinationCookieResponsePacket $packet) : bool;
 
 	public function handleSetPlayerFurnaceOptions(SetPlayerFurnaceOptionsPacket $packet) : bool;
+
+    public function handleClientboundLoadingScreen(ClientboundLoadingScreenPacket $param): bool;
 }
