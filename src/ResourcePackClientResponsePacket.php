@@ -31,13 +31,10 @@ class ResourcePackClientResponsePacket extends DataPacket implements Serverbound
 	public const STATUS_COMPLETED = 4;
 
 	public int $status;
+	public string $responseType = ""; // nouveau
 	/** @var string[] */
 	public array $packIds = [];
 
-	/**
-	 * @generate-create-func
-	 * @param string[] $packIds
-	 */
 	public static function create(int $status, array $packIds) : self{
 		$result = new self;
 		$result->status = $status;
@@ -46,11 +43,11 @@ class ResourcePackClientResponsePacket extends DataPacket implements Serverbound
 	}
 
 	protected function decodePayload(ByteBufferReader $in) : void{
-		$responseTypeId = Byte::readSigned($in); // int8
-		$this->responseType = CommonTypes::getString($in); // "cancel", "downloading", etc.
+		$this->status = Byte::readSigned($in);
+		$this->responseType = CommonTypes::getString($in);
 
 		$this->packIds = [];
-		if($responseTypeId === self::STATUS_SEND_PACKS){ // 2 = Downloading
+		if($this->status === self::STATUS_SEND_PACKS){
 			for($i = 0, $len = VarInt::readUnsignedInt($in); $i < $len; ++$i){
 				$this->packIds[] = CommonTypes::getString($in);
 			}
@@ -58,10 +55,10 @@ class ResourcePackClientResponsePacket extends DataPacket implements Serverbound
 	}
 
 	protected function encodePayload(ByteBufferWriter $out) : void{
-		Byte::writeSigned($out, $this->responseStatus);
+		Byte::writeSigned($out, $this->status);
 		CommonTypes::putString($out, $this->responseType);
 
-		if($this->responseStatus === self::STATUS_SEND_PACKS){
+		if($this->status === self::STATUS_SEND_PACKS){
 			VarInt::writeUnsignedInt($out, count($this->packIds));
 			foreach($this->packIds as $packId){
 				CommonTypes::putString($out, $packId);
