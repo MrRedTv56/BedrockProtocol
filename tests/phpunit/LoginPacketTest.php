@@ -28,7 +28,7 @@ class LoginPacketTest extends TestCase{
 	public function testInvalidChainDataJsonHandling() : void{
 		$stream = new ByteBufferWriter();
 		VarInt::writeUnsignedInt($stream, ProtocolInfo::LOGIN_PACKET);
-		BE::writeUnsignedInt($stream, ProtocolInfo::CURRENT_PROTOCOL);
+		BE::writeUnsignedInt($stream, VersionInfo::CURRENT_PROTOCOL);
 
 		$payload = '{"chain":[]'; //intentionally malformed
 		$stream2 = new ByteBufferWriter();

@@ -31,7 +31,7 @@ class VersionInfo {
 		self::CURRENT_PROTOCOL,
 	];
 
-	public const PROTOCOL_1_26_50 = 2177;
+	public const PROTOCOL_1_26_50 = 2171;
 	public const PROTOCOL_1_26_30 = 1001;
 	public const PROTOCOL_1_26_20 = 975;
 	public const PROTOCOL_1_26_10 = 944;
