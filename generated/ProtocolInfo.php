@@ -31,12 +31,9 @@ final class ProtocolInfo{
 	 * This file is generated automatically, do not edit it manually.
 	 */
 
-	/** Actual Minecraft: PE protocol version */
-	public const CURRENT_PROTOCOL = VersionInfo::CURRENT_PROTOCOL;
-	/** Display version shown in the server logs. This should match the version on the game's home screen. */
-	public const MINECRAFT_VERSION =  VersionInfo::MINECRAFT_VERSION;
-	/** Version sent on the network for client side compatibility checks. This may differ from the display version. */
-	public const MINECRAFT_VERSION_NETWORK =  VersionInfo::MINECRAFT_VERSION_NETWORK;
+	public static function isCompatibleProtocol(int $protocolVersion) : bool{
+		return in_array($protocolVersion, VersionInfo::ACCEPTED_PROTOCOL, true);
+	}
 
 	public const LOGIN_PACKET = 0x01;
 	public const PLAY_STATUS_PACKET = 0x02;
