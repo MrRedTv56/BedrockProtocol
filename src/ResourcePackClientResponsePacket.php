@@ -18,6 +18,7 @@ use pmmp\encoding\Byte;
 use pmmp\encoding\ByteBufferReader;
 use pmmp\encoding\ByteBufferWriter;
 use pmmp\encoding\LE;
+use pmmp\encoding\VarInt;
 use pocketmine\network\mcpe\protocol\serializer\CommonTypes;
 use function count;
 
@@ -45,19 +46,26 @@ class ResourcePackClientResponsePacket extends DataPacket implements Serverbound
 	}
 
 	protected function decodePayload(ByteBufferReader $in) : void{
-		$this->status = Byte::readUnsigned($in);
-		$entryCount = LE::readUnsignedShort($in);
+		$responseTypeId = Byte::readSigned($in); // int8
+		$this->responseType = CommonTypes::getString($in); // "cancel", "downloading", etc.
+
 		$this->packIds = [];
-		while($entryCount-- > 0){
-			$this->packIds[] = CommonTypes::getString($in);
+		if($responseTypeId === self::STATUS_SEND_PACKS){ // 2 = Downloading
+			for($i = 0, $len = VarInt::readUnsignedInt($in); $i < $len; ++$i){
+				$this->packIds[] = CommonTypes::getString($in);
+			}
 		}
 	}
 
 	protected function encodePayload(ByteBufferWriter $out) : void{
-		Byte::writeUnsigned($out, $this->status);
-		LE::writeUnsignedShort($out, count($this->packIds));
-		foreach($this->packIds as $id){
-			CommonTypes::putString($out, $id);
+		Byte::writeSigned($out, $this->responseStatus);
+		CommonTypes::putString($out, $this->responseType);
+
+		if($this->responseStatus === self::STATUS_SEND_PACKS){
+			VarInt::writeUnsignedInt($out, count($this->packIds));
+			foreach($this->packIds as $packId){
+				CommonTypes::putString($out, $packId);
+			}
 		}
 	}
 
