@@ -43,8 +43,14 @@ class ResourcePackClientResponsePacket extends DataPacket implements Serverbound
 	}
 
 	protected function decodePayload(ByteBufferReader $in) : void{
-		$this->status = Byte::readSigned($in);
 		$this->responseType = CommonTypes::getString($in);
+		$this->status = match($this->responseType){
+			'cancel' => self::STATUS_REFUSED,
+			'downloading' => self::STATUS_SEND_PACKS,
+			'downloadingfinished' => self::STATUS_HAVE_ALL_PACKS,
+			'resourcepackstackfinished' => self::STATUS_COMPLETED,
+			default => throw new PacketDecodeException("Unknown response type: $this->responseType")
+		};
 
 		$this->packIds = [];
 		if($this->status === self::STATUS_SEND_PACKS){
