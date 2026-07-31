@@ -64,6 +64,7 @@ class PlayerListPacket extends DataPacket implements ClientboundPacket{
 		$count = VarInt::readUnsignedInt($in);
 		for($i = 0; $i < $count; ++$i){
 			$entry = new PlayerListEntry();
+			$this->type = Byte::readUnsigned($in); // action par entry
 
 			if($this->type === self::TYPE_ADD){
 				$entry->uuid = CommonTypes::getUUID($in);
@@ -94,6 +95,7 @@ class PlayerListPacket extends DataPacket implements ClientboundPacket{
 		Byte::writeUnsigned($out, $this->type);
 		VarInt::writeUnsignedInt($out, count($this->entries));
 		foreach($this->entries as $entry){
+			Byte::writeUnsigned($out, $this->type); // action par entry
 			if($this->type === self::TYPE_ADD){
 				CommonTypes::putUUID($out, $entry->uuid);
 				CommonTypes::putActorUniqueId($out, $entry->actorUniqueId);
