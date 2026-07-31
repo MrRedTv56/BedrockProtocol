@@ -28,7 +28,7 @@ class ResourcePackStackPacket extends DataPacket implements ClientboundPacket{
 	/** @var ResourcePackStackEntry[] */
 	public array $resourcePackStack = [];
 	public bool $mustAccept = false;
-	public string $baseGameVersion = ProtocolInfo::MINECRAFT_VERSION_NETWORK;
+	public string $baseGameVersion = VersionInfo::MINECRAFT_VERSION_NETWORK;
 	public Experiments $experiments;
 	public bool $useVanillaEditorPacks;
 
