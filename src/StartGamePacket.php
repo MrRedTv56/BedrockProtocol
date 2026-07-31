@@ -108,7 +108,7 @@ class StartGamePacket extends DataPacket implements ClientboundPacket{
 		bool $enableClientSideChunkGeneration,
 		bool $blockNetworkIdsAreHashes,
 		NetworkPermissions $networkPermissions,
-		bool $isLoggingChat,
+		//bool $isLoggingChat,
 		?ServerJoinInformation $serverJoinInformation,
 		ServerTelemetryData $serverTelemetryData,
 		array $blockPalette,
@@ -137,7 +137,7 @@ class StartGamePacket extends DataPacket implements ClientboundPacket{
 		$result->enableClientSideChunkGeneration = $enableClientSideChunkGeneration;
 		$result->blockNetworkIdsAreHashes = $blockNetworkIdsAreHashes;
 		$result->networkPermissions = $networkPermissions;
-		$result->isLoggingChat = $isLoggingChat;
+		//$result->isLoggingChat = $isLoggingChat;
 		$result->serverJoinInformation = $serverJoinInformation;
 		$result->serverTelemetryData = $serverTelemetryData;
 		$result->blockPalette = $blockPalette;
