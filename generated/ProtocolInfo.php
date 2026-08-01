@@ -35,6 +35,12 @@ final class ProtocolInfo{
 		return in_array($protocolVersion, VersionInfo::ACCEPTED_PROTOCOL, true);
 	}
 
+	public const CURRENT_PROTOCOL = VersionInfo::PROTOCOL_1_26_50_pc;
+	/** Display version shown in the server logs. This should match the version on the game's home screen. */
+	public const MINECRAFT_VERSION = VersionInfo::MINECRAFT_VERSION;
+	/** Version sent on the network for client side compatibility checks. This may differ from the display version. */
+	public const MINECRAFT_VERSION_NETWORK = VersionInfo::MINECRAFT_VERSION_NETWORK;
+
 	public const LOGIN_PACKET = 0x01;
 	public const PLAY_STATUS_PACKET = 0x02;
 	public const SERVER_TO_CLIENT_HANDSHAKE_PACKET = 0x03;
