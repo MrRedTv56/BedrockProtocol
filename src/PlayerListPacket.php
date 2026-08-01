@@ -94,7 +94,7 @@ class PlayerListPacket extends DataPacket implements ClientboundPacket{
 	protected function encodePayload(ByteBufferWriter $out) : void{
 		VarInt::writeUnsignedInt($out, count($this->entries));
 		foreach($this->entries as $entry){
-			LE::writeUnsignedInt($out, $this->type); // uint32 par entry
+			Byte::writeUnsigned($out, $this->type); // uint8 par entry
 			if($this->type === self::TYPE_ADD){
 				CommonTypes::putUUID($out, $entry->uuid);
 				CommonTypes::putActorUniqueId($out, $entry->actorUniqueId);
