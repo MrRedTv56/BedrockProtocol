@@ -111,7 +111,7 @@ final class CommonTypes{
 		$skinPlayFabId = self::getString($in);
 		$skinResourcePatch = self::getString($in);
 		$skinData = self::getSkinImage($in);
-		$animationCount = VarInt::readUnsignedInt($in);
+		$animationCount = LE::readUnsignedInt($in);
 		$animations = [];
 		for($i = 0; $i < $animationCount; ++$i){
 			$skinImage = self::getSkinImage($in);
@@ -128,7 +128,7 @@ final class CommonTypes{
 		$fullSkinId = self::getString($in);
 		$armSize = self::getString($in);
 		$skinColor = self::getString($in);
-		$personaPieceCount = VarInt::readUnsignedInt($in);
+		$personaPieceCount = LE::readUnsignedInt($in);
 		$personaPieces = [];
 		for($i = 0; $i < $personaPieceCount; ++$i){
 			$pieceId = self::getString($in);
@@ -138,11 +138,11 @@ final class CommonTypes{
 			$productId = self::getString($in);
 			$personaPieces[] = new PersonaSkinPiece($pieceId, $pieceType, $packId, $isDefaultPiece, $productId);
 		}
-		$pieceTintColorCount = VarInt::readUnsignedInt($in);
+		$pieceTintColorCount = LE::readUnsignedInt($in);
 		$pieceTintColors = [];
 		for($i = 0; $i < $pieceTintColorCount; ++$i){
 			$pieceType = self::getString($in);
-			$colorCount = VarInt::readUnsignedInt($in);
+			$colorCount = LE::readUnsignedInt($in);
 			$colors = [];
 			for($j = 0; $j < $colorCount; ++$j){
 				$colors[] = self::getString($in);
