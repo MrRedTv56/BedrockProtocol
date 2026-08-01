@@ -52,12 +52,21 @@ class SkinData{
 		private bool $persona = false,
 		private bool $personaCapeOnClassic = false,
 		private bool $isPrimaryUser = true,
+		private string $profileHash = "",
 		private bool $override = true
 	){
 		$this->capeImage = $capeImage ?? new SkinImage(0, 0, "");
 		//this has to be unique or the client will do stupid things
 		$this->fullSkinId = $fullSkinId ?? Uuid::uuid4()->toString();
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getProfileHash() : string{
+		return $this->profileHash;
+	}
+
 
 	public function getSkinId() : string{
 		return $this->skinId;

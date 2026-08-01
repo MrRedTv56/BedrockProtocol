@@ -158,6 +158,8 @@ final class CommonTypes{
 		$capeOnClassic = self::getBool($in);
 		$isPrimaryUser = self::getBool($in);
 		$override = self::getBool($in);
+		$trustedSkinFlag = Byte::readUnsigned($in); // 0=Unset, 1=False, 2=True
+		$profileHash = self::getString($in);
 
 		return new SkinData(
 			$skinId,
@@ -180,8 +182,10 @@ final class CommonTypes{
 			$persona,
 			$capeOnClassic,
 			$isPrimaryUser,
+			$profileHash,
 			$override,
 		);
+
 	}
 
 	public static function putSkin(ByteBufferWriter $out, SkinData $skin) : void{
@@ -189,12 +193,12 @@ final class CommonTypes{
 		self::putString($out, $skin->getPlayFabId());
 		self::putString($out, $skin->getResourcePatch());
 		self::putSkinImage($out, $skin->getSkinImage());
-		LE::writeUnsignedInt($out, count($skin->getAnimations()));
+		VarInt::writeUnsignedInt($out, count($skin->getAnimations()));
 		foreach($skin->getAnimations() as $animation){
 			self::putSkinImage($out, $animation->getImage());
-			LE::writeUnsignedInt($out, $animation->getType());
+			LE::writeSignedInt($out, $animation->getType());
 			LE::writeFloat($out, $animation->getFrames());
-			LE::writeUnsignedInt($out, $animation->getExpressionType());
+			LE::writeSignedInt($out, $animation->getExpressionType());
 		}
 		self::putSkinImage($out, $skin->getCapeImage());
 		self::putString($out, $skin->getGeometryData());
@@ -204,7 +208,7 @@ final class CommonTypes{
 		self::putString($out, $skin->getFullSkinId());
 		self::putString($out, $skin->getArmSize());
 		self::putString($out, $skin->getSkinColor());
-		LE::writeUnsignedInt($out, count($skin->getPersonaPieces()));
+		VarInt::writeUnsignedInt($out, count($skin->getPersonaPieces()));
 		foreach($skin->getPersonaPieces() as $piece){
 			self::putString($out, $piece->getPieceId());
 			self::putString($out, $piece->getPieceType());
@@ -212,10 +216,10 @@ final class CommonTypes{
 			self::putBool($out, $piece->isDefaultPiece());
 			self::putString($out, $piece->getProductId());
 		}
-		LE::writeUnsignedInt($out, count($skin->getPieceTintColors()));
+		VarInt::writeUnsignedInt($out, count($skin->getPieceTintColors()));
 		foreach($skin->getPieceTintColors() as $tint){
 			self::putString($out, $tint->getPieceType());
-			LE::writeUnsignedInt($out, count($tint->getColors()));
+			VarInt::writeUnsignedInt($out, count($tint->getColors()));
 			foreach($tint->getColors() as $color){
 				self::putString($out, $color);
 			}
@@ -223,10 +227,12 @@ final class CommonTypes{
 		self::putBool($out, $skin->isPremium());
 		self::putBool($out, $skin->isPersona());
 		self::putBool($out, $skin->isPersonaCapeOnClassic());
-		self::putBool($out, $skin->isPrimaryUser());
-		self::putBool($out, $skin->isOverride());
+		self::putBool($out, $skin->isPrimaryUser());       // nouveau
+		self::putBool($out, $skin->isOverride());          // nouveau
+		// TrustedSkinFlag (remplace isVerified) — uint8 : 0=Unset, 1=False, 2=True
+		Byte::writeUnsigned($out, $skin->isVerified() ? 2 : 1);
+		self::putString($out, $skin->getProfileHash());    // nouveau
 	}
-
 	/** @throws DataDecodeException */
 	private static function getSkinImage(ByteBufferReader $in) : SkinImage{
 		$width = LE::readUnsignedInt($in);
